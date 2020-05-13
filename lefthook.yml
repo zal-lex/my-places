@@ -1,0 +1,9 @@
+pre-commit:
+  parallel: true
+  commands:
+    rspec:
+      run: bundle exec rspec spec
+    rubocop:
+      files: git diff --name-only --staged
+      glob: "*.rb"
+      run: rubocop --force-exclusion {files}
