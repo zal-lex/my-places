@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Layout/LineLength
 require_relative 'boot'
 
 require 'rails/all'
@@ -17,3 +20,4 @@ module FavoritePlaces
     # the framework and any gems in your application.
   end
 end
+# rubocop:enable Layout/LineLength

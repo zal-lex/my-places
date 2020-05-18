@@ -13,5 +13,8 @@ AllCops:
   - "**/db/**/*"
   - "**/bin/**/*"
   - "**/node_modules/**/*"
+  - "Gemfile"
+  - "Rakefile"
+  - "**/jobs/*"
   DisplayCopNames: true
   StyleGuideCopsOnly: false
