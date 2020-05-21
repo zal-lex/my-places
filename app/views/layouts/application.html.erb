@@ -4,15 +4,44 @@
     <title>FavoritePlaces</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMG_afSPeFIGsCLwEsNCS4OxwiX0HkD8&callback=initMap"></script>
   </head>
-
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-
-  <body>
-    <%= yield %>
-  </body>
+ <body>
+  <div class="container"> 
+    <div class="row navbar"> 
+      <div class="col-8"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
+      <div class="col-4">
+        <% if user_signed_in? %>
+          <button class="btn btn-link dropdown-toggle" 
+                  type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+                  aria-haspopup="true" aria-expanded="false">
+                  <%= image_tag user_avatar(@user), class: 'user_avatar' %>
+                  <%= current_user.name %>
+          </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item"><%= link_to 'My Places', current_user%></a>
+              <a class="dropdown-item"><%= link_to 'Edit Profile', edit_user_registration_path(current_user) %></a>
+              <a class="dropdown-item"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></a>
+            </div>
+        <% else %>
+          <button type="button" class="btn btn-outline-primary top-button"><%= link_to 'Sign in', 
+                                                                               new_user_session_path %></button>
+          <button type="button" class="btn btn-outline-primary top-button"><%= link_to 'Sign up', 
+                                                                              new_user_registration_path %></button>
+        <% end %>
+      </div>  
+    </div> 
+  </div>
+        <% flash.each do |key, value| %>
+          <div class="<%= flash_class(key) %> alert alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+              <div><%= value %></div>
+          </div>
+        <% end %>
+  <%= yield %>
+</body>
 </html>

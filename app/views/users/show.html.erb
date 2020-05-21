@@ -1,14 +1,14 @@
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<div class="container second-menu">
+  <div class="user-navigation">
+    <button type="button" class="btn btn-light user-nav-but active" aria-pressed="true">My Places</button>
+    <button type="button" class="btn btn-light user-nav-but">Friends</button>
+    <button type="button" class="btn btn-light user-nav-but">Favorites</button>
+  </div>
+</div>
 
-<p>
-  <strong>Avatar url:</strong>
-  <%= @user.avatar_url %>
-</p>
+<div id="map">
+  
+    <%= javascript_pack_tag 'custom-map' %>
+</div>
 
 
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>

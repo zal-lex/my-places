@@ -10,6 +10,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:signin) }
     devise_parameter_sanitizer.permit(:sign_up,
                                       keys: %i[email password password_confirmation username name age sex avatar_url])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: %i[email password password_confirmation username name age sex avatar_url])
   end
 
   def after_sign_in_path_for(_resource)
