@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+# rubocop:disable Metrics/BlockLength
 
 require 'rails_helper'
-# rubocop:disable Layout/LineLength
-# rubocop:disable Metrics/BlockLength
 
 RSpec.describe '/users', type: :request do
   let(:valid_attributes) do
@@ -161,4 +160,3 @@ RSpec.describe '/users', type: :request do
   end
 end
 # rubocop:enable Metrics/BlockLength
-# rubocop:enable Layout/LineLength

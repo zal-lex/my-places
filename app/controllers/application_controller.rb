@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Layout/LineLength
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -18,4 +17,3 @@ class ApplicationController < ActionController::Base
     current_user
   end
 end
-# rubocop:enable Layout/LineLength

@@ -1,5 +1,9 @@
-require: rubocop-rails
-require: rubocop-rspec
+require: 
+  - rubocop-rails
+  - rubocop-rspec
+
+Layout/LineLength:
+  Max: 100
 
 Style/Documentation:
   Enabled: false
@@ -16,5 +20,9 @@ AllCops:
   - "Gemfile"
   - "Rakefile"
   - "**/jobs/*"
+  - "config/**/*"
+  - "spec/rails_helper.rb"
+  - "spec/spec_helper.rb"
+
   DisplayCopNames: true
   StyleGuideCopsOnly: false
