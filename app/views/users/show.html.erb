@@ -7,5 +7,9 @@
 </div>
 
 <div id="map">
-  <%= javascript_pack_tag 'custom-map' %>
+  <% if current_user == @user %>
+    <%= javascript_pack_tag 'author_map' %>
+  <% else %>
+    <%= javascript_pack_tag 'user_map' %>
+  <% end %>
 </div>

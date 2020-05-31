@@ -7,7 +7,8 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 require('jquery')
-require("packs/custom-map.js")
+require("packs/author_map.js")
+require("packs/user_map.js")
 import "bootstrap"
 
 // Uncomment to copy all static images under ../images to the output folder and reference

@@ -1,0 +1,14 @@
+{
+  "id": "file:/place.json#",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "description": "A place",
+  "type": "object",
+  "properties": {
+    "id": { "type": "number" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "latitude": { "type": "number" },
+    "longitude": { "type": "number" }
+  },
+  "required": ["title", "latitude", "longitude"]
+}

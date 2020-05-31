@@ -1,0 +1,11 @@
+{
+  "id": "file:/places/index.json#",
+  "$schema": "https://json-schema.org/draft-06/schema#",
+  "description": "An array of places",
+  "type": "array",
+  "minItems": 1,
+  "items": {
+    "$ref": "file:/place.json#"
+  }
+}
+ 

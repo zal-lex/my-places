@@ -4,9 +4,10 @@
     <title>FavoritePlaces</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMG_afSPeFIGsCLwEsNCS4OxwiX0HkD8&callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMG_afSPeFIGsCLwEsNCS4OxwiX0HkD8&callback=initMap"></script>
   </head>
  <body>
   <div class="container"> 
