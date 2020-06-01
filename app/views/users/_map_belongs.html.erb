@@ -1,0 +1,7 @@
+<% unless current_user == @user %>
+  Current map of
+  <%= image_tag user_avatar(@user), class: 'user_avatar' %>
+  <strong>
+    <%= @user.username %>
+  </strong>
+<% end %>

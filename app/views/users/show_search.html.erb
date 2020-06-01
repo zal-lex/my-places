@@ -1,0 +1,11 @@
+<div class="col-md-8">
+  <h3><%= 'Your search results:' %></h3>
+	<% if @users.any? %>
+	  <ul class="users search">
+		<%= render @users %>
+	  </ul>
+	<% else %>
+	  <%= "Sorry, user is not found." %>
+	<% end %>
+  </div>
+</div>

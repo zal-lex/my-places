@@ -4,6 +4,9 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_many :places, foreign_key: :author_id, dependent: :destroy, inverse_of: :author
+  has_many :active_friendships, class_name: 'Friendship',
+                                foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
+  has_many :following, through: :active_friendships, source: :friend
   attr_accessor :signin
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -20,5 +23,25 @@ class User < ApplicationRecord
     find_by(['lower(username) = :value OR lower(email) = :value', {
               value: warden_conditions[:signin].downcase
             }])
+  end
+
+  def follow(other_user)
+    following << other_user
+  end
+
+  def unfollow(other_user)
+    following.delete(other_user)
+  end
+
+  def following?(other_user)
+    following.include?(other_user)
+  end
+
+  def self.search(search)
+    if search
+      where('username LIKE ? or email LIKE ?', "%#{search}%", "%#{search}%")
+    else
+      find(:all)
+    end
   end
 end

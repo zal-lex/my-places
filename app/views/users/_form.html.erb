@@ -2,7 +2,6 @@
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
       <ul>
         <% user.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -27,10 +26,10 @@
   </div>
 
   <div class="field">    
-     <%= form.label :sex %></br>
-     <span class="option">Male<span><%= form.radio_button :sex, "1" %></br>
-     <span class="option">Female<span><%= form.radio_button :sex, "2" %></br>
-     <span class="option">Non-binary<span><%= form.radio_button :sex, "3" %></br>
+    <%= form.label :sex %></br>
+    <span class="option">Male<span><%= form.radio_button :sex, "1" %></br>
+    <span class="option">Female<span><%= form.radio_button :sex, "2" %></br>
+    <span class="option">Non-binary<span><%= form.radio_button :sex, "3" %></br>
   </div>
 
   <div class="field">

@@ -12,9 +12,16 @@
  <body>
   <div class="container"> 
     <div class="row navbar"> 
-      <div class="col-8"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
+      <div class="col-4"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
+      <div class="col-4">
+        <%= form_tag(users_path(@user), :method => "get", id: "search-form") do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
+          <%= submit_tag "Search" %>
+        <% end %>
+      </div>
       <div class="col-4">
         <% if user_signed_in? %>
+
           <button class="btn btn-link dropdown-toggle" 
                   type="button" id="dropdownMenuButton" data-toggle="dropdown" 
                   aria-haspopup="true" aria-expanded="false">

@@ -1,8 +1,26 @@
 <div class="container second-menu">
-  <div class="user-navigation">
-    <button type="button" class="btn btn-light user-nav-but active" aria-pressed="true">My Places</button>
-    <button type="button" class="btn btn-light user-nav-but">Friends</button>
-    <button type="button" class="btn btn-light user-nav-but">Favorites</button>
+  <div class="row align-items-center">
+    <div class="col-sm">
+      <div class="user-navigation">
+        <% if user_signed_in? %>
+          <button type="button" class="btn btn-light user-nav-but active" aria-pressed="true"><%= link_to 'My Places', current_user%></button>
+          <button class="btn btn-light user-nav-but"
+                  type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">My friends (<%= current_user.following.count %>)
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <%= render partial: 'users/friend', collection: current_user_friends %>
+          </div>
+          <button type="button" class="btn btn-light user-nav-but">Favorites</button>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm">
+      <%= render 'map_belongs' %>
+    </div>
+    <div class="col-sm">
+      <%= render 'follow_form' if signed_in? %>
+    </div>
   </div>
 </div>
 

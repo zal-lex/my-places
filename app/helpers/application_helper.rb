@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def user_avatar(_user)
+  def user_avatar(_user, _options = { size: 30 })
     asset_path('user.png')
   end
 
@@ -12,5 +12,9 @@ module ApplicationHelper
     when 'error' then 'alert alert-danger'
     when 'alert' then 'alert alert-warning'
     end
+  end
+
+  def current_user_friends
+    User.where(id: current_user.active_friendships.pluck(:friend_id))
   end
 end
