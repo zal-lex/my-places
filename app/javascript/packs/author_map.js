@@ -1,6 +1,7 @@
-import setMarkers from './set_markers.js';
+import { setMarker, getPlaces } from './set_markers.js';
+
 let map;
-let places = [];
+
 $(document).ready(function initMap() {
   let Minsk = new google.maps.LatLng(53.90223918954443, 27.561849518192048);
 
@@ -15,22 +16,8 @@ $(document).ready(function initMap() {
   google.maps.event.addListener(map, "click", function (event) {
     addPlace(event.latLng);
   });
-
-  getPlaces();
+  getPlaces(map);
 });
-
-async function getPlaces () {
-  let url = window.location.pathname + "/places.json";
-  let response = await fetch(url);
-
-  if (response.ok) {
-    places = await response.json();
-  } else {
-    alert("Ошибка HTTP: " + response.status);
-  }
-
-  setMarkers(map, places);
-};
 
 function addPlace(location) {
   let latitude = location.toJSON().lat;
@@ -51,7 +38,7 @@ function addPlace(location) {
       '</div>' +
       '<div class="form-group">' +
         '<label for="description">Description:</label>' +
-        '<textarea class="form-control" id="description_input" rows="3" maxlength="500" placeholder="Enter title"></textarea>' +
+        '<textarea class="form-control" id="description_input" rows="3" maxlength="500" placeholder="Enter description"></textarea>' +
       '</div>' +
     '</form>'+
     '<button id="inputButton" class="btn btn-success">Set my Place!</button>';
@@ -61,10 +48,10 @@ function addPlace(location) {
   infoWindow.setContent(inputForm);
   infoWindow.open(map, marker);
 
-  savePlace(latitude, longitude, infoWindow);
+  savePlace(infoWindow, marker);
 }
 
-function savePlace(lat, lng, infoWindow) {
+function savePlace(infoWindow, marker) {
   // Create infoWindow
   google.maps.event.addListener(infoWindow, "domready", function () {
 
@@ -72,7 +59,8 @@ function savePlace(lat, lng, infoWindow) {
     let button = document.getElementById("inputButton");
 
     // On click of form submit buttons
-    button.addEventListener('click', function(e) {
+    button.addEventListener('click', async function(e) {
+
       let input = document.querySelectorAll("input")[0];
 
       if ( input.validity.valueMissing ) {
@@ -85,15 +73,15 @@ function savePlace(lat, lng, infoWindow) {
         // Get input value and call setMarkerData function
         let inputTitle = document.getElementById("title_input").value;
         let inputDescription = document.getElementById("description_input").value;
-        let url = window.location.pathname;
         let submittableData = {
           title: inputTitle,
           description: inputDescription,
-          latitude: lat,
-          longitude: lng,
+          latitude: marker.getPosition().lat(),
+          longitude: marker.getPosition().lng(),
         };
+        let userId = document.body.getAttribute('data-params-id');
 
-        fetch(url + "/places", {
+        let response = await fetch("/users/" + userId + "/places", {
           method: "POST",
           headers: {
             "X-CSRF-Token": document
@@ -102,10 +90,10 @@ function savePlace(lat, lng, infoWindow) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(submittableData),
-        }).then((response) => {
-          places.push(submittableData);
-          setMarkers(map, places);
-        });
+        })
+
+        let place = await response.json();
+        setMarker(map, marker, place);
         infoWindow.close();
       }
     });

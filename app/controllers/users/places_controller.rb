@@ -12,6 +12,10 @@ class Users::PlacesController < ApplicationController
     @place = current_user.places.create!(place_params)
   end
 
+  def destroy
+    Place.find(params[:id]).destroy
+  end
+
   private
 
   def place_params

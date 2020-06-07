@@ -1,5 +1,5 @@
 let map;
-let places = {};
+let places = [];
 
 $(document).ready(function initMap() {
   let Minsk = new google.maps.LatLng(53.90223918954443, 27.561849518192048);
@@ -15,7 +15,8 @@ $(document).ready(function initMap() {
 });
 
 async function getPlaces () {
-  let url = window.location.pathname + "/places.json";
+  let userId = document.body.getAttribute('data-params-id');
+  let url = "/users/" + userId + "/places.json";
   let response = await fetch(url);
 
   if (response.ok) {

@@ -9,7 +9,13 @@
     <%= javascript_pack_tag 'application' %>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMG_afSPeFIGsCLwEsNCS4OxwiX0HkD8&callback=initMap"></script>
   </head>
- <body>
+  <% if params.has_key?(:id) %>
+  <body <%= "data-params-id=#{params[:id]}" %>>
+  <% elsif params.has_key?(:user_id) %>
+  <body <%= "data-params-id=#{params[:user_id]}" %>>
+  <% else %>
+  <body>
+  <% end %>
   <div class="container"> 
     <div class="row navbar"> 
       <div class="col-4"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
