@@ -1,7 +1,7 @@
 let map;
 let places = [];
 
-$(document).ready(function initMap() {
+$(document).ready(initMap = function() {
   let Minsk = new google.maps.LatLng(53.90223918954443, 27.561849518192048);
 
   // Create instance of map
