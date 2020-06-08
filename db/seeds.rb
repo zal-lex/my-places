@@ -19,7 +19,7 @@ User.create!(username: "tanya",
 	sex = 2,
 	email = "tanya-#{n+1}@ya.ru"
 	password = "123123"
-	User.create!(username: username,
+	User.create!(username: username[5..15],
 		        name: name,
 		        age: 15,
 	            sex: 2,
@@ -29,14 +29,27 @@ User.create!(username: "tanya",
 end
 
 users = User.order(:created_at).take(6)
-10.times do
-title = Faker::Lorem.sentence
-latitude = rand(-90..90)
-longitude = rand(-90..90)
-users.each { |user| user.places.create!(title: title, latitude: latitude, longitude: longitude) }
+
+6.times do |n|
+	user = User.find(n+1)
+	3.times do 
+		title = Faker::Lorem.sentence
+		description = Faker::Lorem.sentence
+		latitude = rand(-90..90) 
+		longitude = rand(-180..180)
+		user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude) 
+  end
 end
 
 users = User.all
 user = users.first
 following = users[2..9]
 following.each { |friend| user.follow(friend) }
+
+users = User.order(:created_at).take(6)
+6.times do |n|
+	user = User.find(n+1)
+	places = Place.all
+	liking = places[1..15]
+	liking.each { |place| user.fav_places.create!(likeable: place) }
+end

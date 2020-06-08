@@ -15,19 +15,9 @@
         <% end %>
       </div>
     </div>
-    <div class="col-sm">
-      <%= render 'map_belongs' %>
-    </div>
-    <div class="col-sm">
-      <%= render 'follow_form' if signed_in? %>
-    </div>
   </div>
 </div>
 
 <div id="map">
-  <% if signed_in? && (current_user == @user || current_user.is_admin?) %>
-    <%= javascript_pack_tag 'author_map' %>
-  <% else %>
-    <%= javascript_pack_tag 'user_map' %>
-  <% end %>
+  <%= javascript_pack_tag 'fav_places' %>
 </div>

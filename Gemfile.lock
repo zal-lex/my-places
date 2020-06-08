@@ -160,6 +160,9 @@ GEM
     parser (2.7.1.2)
       ast (~> 2.4.0)
     pg (1.2.3)
+    pry (0.13.1)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     public_suffix (4.0.5)
     puma (4.3.5)
       nio4r (~> 2.0)
@@ -316,7 +319,8 @@ DEPENDENCIES
   json_matchers
   lefthook
   listen (~> 3.2)
-  pg (>= 0.18, < 2.0)
+  pg (>= 1.1.4)
+  pry
   puma (~> 4.1)
   rails (~> 6.0.3)
   rails-controller-testing

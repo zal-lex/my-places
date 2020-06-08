@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_213422) do
+ActiveRecord::Schema.define(version: 2020_06_06_160953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fav_places", force: :cascade do |t|
+    t.string "likeable_type"
+    t.bigint "user_id", null: false
+    t.bigint "likeable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["likeable_id"], name: "index_fav_places_on_likeable_id"
+    t.index ["user_id", "likeable_id", "likeable_type"], name: "index_fav_places_on_user_id_and_likeable_id_and_likeable_type", unique: true
+    t.index ["user_id"], name: "index_fav_places_on_user_id"
+  end
 
   create_table "friendships", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -50,12 +61,19 @@ ActiveRecord::Schema.define(version: 2020_05_27_213422) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "unconfirmed_email"
+    t.string "confirmation_token"
+    t.string "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  add_foreign_key "friendships", "users"
-  add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "fav_places", "places", column: "likeable_id", on_delete: :cascade
+  add_foreign_key "fav_places", "users", on_delete: :cascade
+  add_foreign_key "friendships", "users", column: "friend_id", on_delete: :cascade
+  add_foreign_key "friendships", "users", on_delete: :cascade
   add_foreign_key "places", "users", column: "author_id"
 end

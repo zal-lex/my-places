@@ -7,6 +7,8 @@ FactoryBot.define do
     sequence(:email) { |n| "awesome_user_#{n}@example.com" }
     sex { rand(1..3) }
     age { rand(1..200) }
+    confirmed_at { DateTime.now }
+    confirmation_token { "dfsdfdsf#{rand(999)}" }
     after(:build) { |u| u.password_confirmation = u.password = '123456' }
   end
 end

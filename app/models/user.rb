@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Lint/AssignmentInCondition
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,9 +9,11 @@ class User < ApplicationRecord
   has_many :active_friendships, class_name: 'Friendship',
                                 foreign_key: 'user_id', dependent: :destroy, inverse_of: :user
   has_many :following, through: :active_friendships, source: :friend
+  has_many :fav_places, foreign_key: :user_id, dependent: :destroy, inverse_of: :user
+
   attr_accessor :signin
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :confirmable
   validates :name, presence: true, length: { maximum: 60 }
   validates :username, presence: true, uniqueness: { case_sensitive: false },
                        length: { maximum: 15 }
@@ -21,9 +25,13 @@ class User < ApplicationRecord
   mount_uploader :avatar_url, AvatarUploader
 
   def self.find_first_by_auth_conditions(warden_conditions)
-    find_by(['lower(username) = :value OR lower(email) = :value', {
-              value: warden_conditions[:signin].downcase
-            }])
+    conditions = warden_conditions.dup
+    if signin = conditions.delete(:signin)
+      where(conditions).find_by(['lower(username) = :value OR lower(email) = :value',
+                                 { value: signin.downcase }])
+    else
+      find_by(conditions)
+    end
   end
 
   def follow(other_user)
@@ -46,3 +54,4 @@ class User < ApplicationRecord
     end
   end
 end
+# rubocop:enable Lint/AssignmentInCondition

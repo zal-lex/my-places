@@ -14,7 +14,9 @@ RSpec.describe 'Authentication', type: :request do
       sex: 1,
       age: 22,
       password: '123456',
-      password_confirmation: '123456'
+      password_confirmation: '123456',
+      confirmed_at: DateTime.now,
+      confirmation_token: 'dfsdfdsf#{rand(999)'
     }
   end
 

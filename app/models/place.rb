@@ -2,6 +2,7 @@
 
 class Place < ApplicationRecord
   belongs_to :author, class_name: :User, foreign_key: :author_id, inverse_of: :places
+  has_many :fav_places, as: :likeable, dependent: :destroy
   validates :title, presence: true, length: { maximum: 60 }
   validates :description, length: { maximum: 500 }
   validates :latitude, presence: true, numericality: { less_than_or_equal_to: 90,

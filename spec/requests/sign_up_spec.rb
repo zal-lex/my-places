@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/BlockLength
-
 require 'rails_helper'
 
 RSpec.describe '/users', type: :request do
@@ -13,7 +12,9 @@ RSpec.describe '/users', type: :request do
       sex: 1,
       age: 22,
       password: '123456',
-      password_confirmation: '123456'
+      password_confirmation: '123456',
+      confirmed_at: DateTime.now,
+      confirmation_token: 'dfsdfdsf#{rand(999)'
     }
   end
 
@@ -25,7 +26,9 @@ RSpec.describe '/users', type: :request do
       sex: 5,
       age: 22,
       password: '123456',
-      password_confirmation: '123456'
+      password_confirmation: '123456',
+      confirmed_at: DateTime.now,
+      confirmation_token: 'dfsdfdsf#{rand(999)'
     }
   end
 
@@ -49,9 +52,9 @@ RSpec.describe '/users', type: :request do
         end.to change(User, :count).by(1)
       end
 
-      it 'redirects to the created user' do
+      it 'redirects to the main page before email confirmation' do
         post user_registration_path, params: { user: valid_attributes }
-        expect(response).to redirect_to(user_url(User.last))
+        expect(response).to redirect_to(root_path)
       end
     end
 
