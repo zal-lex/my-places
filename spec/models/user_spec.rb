@@ -12,6 +12,11 @@ RSpec.describe User, type: :model do
     {}
   end
 
+  describe 'model index in db' do
+    it { is_expected.to have_db_index(:email).unique }
+    it { is_expected.to have_db_index(:username).unique }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:username) }
@@ -32,6 +37,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many :places }
     it { is_expected.to have_many :active_friendships }
     it { is_expected.to have_many :following }
+    it { is_expected.to have_many :fav_places }
   end
 
   describe 'following and unfollowing a user' do

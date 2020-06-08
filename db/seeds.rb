@@ -35,8 +35,8 @@ users = User.order(:created_at).take(6)
 	3.times do 
 		title = Faker::Lorem.sentence
 		description = Faker::Lorem.sentence
-		latitude = rand(-90..90) 
-		longitude = rand(-180..180)
+		latitude = rand(53.80..54.00) 
+		longitude = rand(27.40..27.70)
 		user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude) 
   end
 end

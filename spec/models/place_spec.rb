@@ -10,6 +10,10 @@ RSpec.describe Place, type: :model do
     {}
   end
 
+  describe 'model index in db' do
+    it { is_expected.to have_db_index(:author_id) }
+  end
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:latitude) }
@@ -24,5 +28,6 @@ RSpec.describe Place, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:author) }
+    it { is_expected.to have_many(:fav_places) }
   end
 end
