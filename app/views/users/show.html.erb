@@ -25,7 +25,7 @@
 </div>
 
 <div id="map">
-  <% if current_user == @user %>
+  <% if signed_in? && (current_user == @user || current_user.is_admin?) %>
     <%= javascript_pack_tag 'author_map' %>
   <% else %>
     <%= javascript_pack_tag 'user_map' %>

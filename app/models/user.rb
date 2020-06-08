@@ -18,6 +18,7 @@ class User < ApplicationRecord
   validates :sex, presence: true, numericality: { only_integer: true,
                                                   less_than_or_equal_to: 3,
                                                   greater_than: 0 }
+  mount_uploader :avatar_url, AvatarUploader
 
   def self.find_first_by_auth_conditions(warden_conditions)
     find_by(['lower(username) = :value OR lower(email) = :value', {

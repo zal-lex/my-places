@@ -23,9 +23,11 @@
     <div class="row navbar"> 
       <div class="col-4"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
       <div class="col-4">
-        <%= form_tag(users_path(@user), :method => "get", id: "search-form") do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search Users" %>
-          <%= submit_tag "Search" %>
+        <%= form_tag(users_path(@user), :method => "get", id: "search-form", class: "form-inline ml-auto") do %>
+
+          <%= text_field_tag :search, params[:search], placeholder: "Search Users", class: "form-control" %>
+
+          <%= submit_tag "Search", class: "btn btn-outline-white btn-md my-0 ml-sm-2" %>
         <% end %>
       </div>
       <div class="col-4">

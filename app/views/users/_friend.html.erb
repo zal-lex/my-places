@@ -1,11 +1,12 @@
 <div class="container">
   <div class="row justify-content-md-left">
     <div class="col-md-auto">
-      <a class="dropdown-item"><%= image_tag user_avatar(@user), class: 'user_avatar' %></a>
+      	<%= image_tag(friend.avatar_url.thumb.url, class: 'user_avatar') if friend.avatar_url? %>
     </div>
     <div class="col">
-      <a class="dropdown-item">
-      <%= link_to "#{friend.username}", user_path(id: friend.id) %></a>
+     
+      <%= link_to "#{friend.username}", user_path(id: friend.id) %>
     </div>
   </div>
 </div>
+

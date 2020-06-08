@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
-  def user_avatar(_user, _options = { size: 30 })
-    asset_path('user.png')
+  def user_avatar(_user)
+    if current_user.avatar_url?
+      current_user.avatar_url.url
+    else
+      asset_path('user.png')
+    end
   end
 
   def flash_class(level)

@@ -19,6 +19,9 @@ gem 'webpacker', '~> 4.0'
 gem 'devise'
 gem 'faker', '2.1.2'
 gem 'jbuilder', '~> 2.7'
+gem 'carrierwave'
+gem 'rmagick'
+gem 'fog-aws'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password

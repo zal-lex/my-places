@@ -31,7 +31,9 @@ end
 users = User.order(:created_at).take(6)
 10.times do
 title = Faker::Lorem.sentence
-users.each { |user| user.places.create!(title: title) }
+latitude = rand(-90..90)
+longitude = rand(-90..90)
+users.each { |user| user.places.create!(title: title, latitude: latitude, longitude: longitude) }
 end
 
 users = User.all
