@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 2020_06_06_160953) do
 
   add_foreign_key "fav_places", "places", column: "likeable_id", on_delete: :cascade
   add_foreign_key "fav_places", "users", on_delete: :cascade
-  add_foreign_key "friendships", "users", column: "friend_id", on_delete: :cascade
-  add_foreign_key "friendships", "users", on_delete: :cascade
+  add_foreign_key "friendships", "users"
+  add_foreign_key "friendships", "users", column: "friend_id"
   add_foreign_key "places", "users", column: "author_id"
 end
