@@ -20,13 +20,15 @@ User.create!(username: "tanya",
 	sex = 2,
 	email = "tanya-#{n+1}@ya.ru"
 	password = "123123"
-	User.create!(username: username[5..15],
+	user = User.new(username: username[5..15],
 		        name: name,
 		        age: 15,
-	            sex: 2,
-				email: email,
-				password: password,
-				password_confirmation: password)
+	                sex: 2,
+			email: email,
+			password: password,
+			password_confirmation: password)
+	user.skip_confirmation!
+	user.save!
 end
 
 users = User.order(:created_at).take(6)
@@ -39,7 +41,7 @@ users = User.order(:created_at).take(6)
 		latitude = rand(53.80..54.00) 
 		longitude = rand(27.40..27.70)
 		user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude) 
-  end
+        end
 end
 
 users = User.all
