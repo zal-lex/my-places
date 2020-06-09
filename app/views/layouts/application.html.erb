@@ -19,40 +19,44 @@
   <% else %>
   <body>
   <% end %>
-  <div class="container"> 
-    <div class="row navbar"> 
+  <div class="container top">
+    <div class="row navbar">
       <div class="col-4"><%= link_to t('app.name'), root_path, class: "navbar-brand"  %></div>
-      <div class="col-4">
+      <div class="col-2">
         <%= form_tag(users_path(@user), :method => "get", id: "search-form", class: "form-inline ml-auto") do %>
 
-          <%= text_field_tag :search, params[:search], placeholder: "Search Users", class: "form-control" %>
+          <%= text_field_tag :search, params[:search], placeholder: "Search Users", class: "input-code__input", id: "code-input" %>
+            <label for="code-input" class="input-code__label"></label>
 
-          <%= submit_tag "Search", class: "btn btn-outline-white btn-md my-0 ml-sm-2" %>
+                <button class="search-button" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+
         <% end %>
       </div>
       <div class="col-4">
         <% if user_signed_in? %>
 
-          <button class="btn btn-link dropdown-toggle" 
-                  type="button" id="dropdownMenuButton" data-toggle="dropdown" 
+          <button class="btn btn-link dropdown-toggle username"
+                  type="button" id="dropdownMenuButton" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">
                   <%= image_tag user_avatar(@user), class: 'user_avatar' %>
                   <%= current_user.name %>
           </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item"><%= link_to 'My Places', current_user%></a>
-              <a class="dropdown-item"><%= link_to 'Edit Profile', edit_user_registration_path(current_user) %></a>
-              <a class="dropdown-item"><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></a>
+              <%= link_to 'My Places', current_user %><br>
+              <%= link_to 'Edit Profile', edit_user_registration_path(current_user) %><br>
+              <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
             </div>
         <% else %>
-          <button type="button" class="btn btn-outline-primary top-button"><%= link_to 'Sign in', 
+          <button type="button" class="btn btn-outline-light btn-sm"><%= link_to 'Sign in',
                                                                                new_user_session_path %></button>
-          <button type="button" class="btn btn-outline-primary top-button"><%= link_to 'Sign up', 
+          <button type="button" class="btn btn-outline-light btn-sm"><%= link_to 'Sign up',
                                                                               new_user_registration_path %></button>
-          <button type="button" class="btn btn-outline-primary top-button"><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></button>
+          <button type="button" class="btn btn-outline-light btn-sm"><%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %></button>
         <% end %>
-      </div>  
-    </div> 
+      </div>
+    </div>
   </div>
         <% flash.each do |key, value| %>
           <div class="<%= flash_class(key) %> alert alert-dismissible fade show" role="alert">

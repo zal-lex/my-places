@@ -27,8 +27,9 @@ function setMarker(map, marker, place) {
     place.title +
     "</br><strong>Description:</strong></br>" +
     place.description +
-    '</br><button id="editButton" class="btn btn-link">Edit</button>' +
-    '<button id="deleteButton" class="btn btn-link">Delete</button>';
+    
+    '</br><button id="editButton" class="btn btn-outline-dark btn-sm">Edit</button>' +
+    '<button id="deleteButton" class="btn btn-outline-dark btn-sm pad">Delete</button>';
 
   let infoWindow = new google.maps.InfoWindow();
 

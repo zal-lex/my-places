@@ -6,42 +6,42 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 User.create!(username: "tanya",
-	        name: "tanya",
-	        age: "2",
-	        sex: "2",
-			email: "YOUREMAIL",
-			is_admin: true,
-			password: "123123",
-			password_confirmation: "123123")
+             name: "tanya",
+             age: "2",
+             sex: "2",
+             email: "YOUREMAIL",
+             is_admin: true,
+             password: "123123",
+             password_confirmation: "123123")
 10.times do |n|
-	username = Faker::Name.name
-	name = "tanya"
-	age = 2,
-	sex = 2,
-	email = "tanya-#{n+1}@ya.ru"
-	password = "123123"
-	user = User.new(username: username[5..15],
-		        name: name,
-		        age: 15,
-	                sex: 2,
-			email: email,
-			password: password,
-			password_confirmation: password)
-	user.skip_confirmation!
-	user.save!
+  username = Faker::Name.name
+  name = "tanya"
+  age = 2,
+  sex = 2,
+  email = "tanya-#{n+1}@ya.ru"
+  password = "123123"
+  user = User.new(username: username[5..15],
+                  name: name,
+                  age: 15,
+                  sex: 2,
+                  email: email,
+                  password: password,
+                  password_confirmation: password)
+  user.skip_confirmation!
+  user.save!
 end
 
 users = User.order(:created_at).take(6)
 
 6.times do |n|
-	user = User.find(n+1)
-	3.times do 
-		title = Faker::Lorem.sentence
-		description = Faker::Lorem.sentence
-		latitude = rand(53.80..54.00) 
-		longitude = rand(27.40..27.70)
-		user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude) 
-        end
+  user = User.find(n+1)
+  3.times do 
+    title = Faker::Lorem.sentence
+    description = Faker::Lorem.sentence
+    latitude = rand(53.80..54.00) 
+    longitude = rand(27.40..27.70)
+    user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude)
+  end
 end
 
 users = User.all
@@ -51,8 +51,8 @@ following.each { |friend| user.follow(friend) }
 
 users = User.order(:created_at).take(6)
 6.times do |n|
-	user = User.find(n+1)
-	places = Place.all
-	liking = places[1..15]
-	liking.each { |place| user.fav_places.create!(likeable: place) }
+  user = User.find(n+1)
+  places = Place.all
+  liking = places[1..15]
+  liking.each { |place| user.fav_places.create!(likeable: place) }
 end
