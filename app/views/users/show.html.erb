@@ -21,6 +21,11 @@
     <div class="col-sm">
       <%= render 'follow_form' if signed_in? %>
     </div>
+    <% if signed_in? && current_user.is_admin? %>
+      <% unless current_page?(current_user) %>
+        <button type="button" class="btn btn-light user-nav-but active" aria-pressed="true"><%= link_to "Delete User", @user, method: :delete, data: { confirm: "Are you sure?" } %></button>
+      <% end %>            
+    <% end %>
   </div>
 </div>
 
