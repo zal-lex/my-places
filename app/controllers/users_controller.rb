@@ -14,6 +14,12 @@ class UsersController < ApplicationController
 
   def show; end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = 'User was deleted forever'
+    redirect_to current_user
+  end
+
   def following
     @user = User.find(params[:id])
     @users = @user.following

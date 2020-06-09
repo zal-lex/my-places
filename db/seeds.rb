@@ -9,7 +9,8 @@ User.create!(username: "tanya",
 	        name: "tanya",
 	        age: "2",
 	        sex: "2",
-			email: "tanya@ya.ru",
+			email: "YOUREMAIL",
+			is_admin: true,
 			password: "123123",
 			password_confirmation: "123123")
 10.times do |n|

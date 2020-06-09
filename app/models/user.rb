@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 # rubocop:disable Lint/AssignmentInCondition
+# rubocop:disable Metrics/AbcSize
+# rubocop:disable Metrics/MethodLength
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -13,10 +15,11 @@ class User < ApplicationRecord
 
   attr_accessor :signin
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable, :omniauthable,
+         omniauth_providers: %i[facebook]
   validates :name, presence: true, length: { maximum: 60 }
   validates :username, presence: true, uniqueness: { case_sensitive: false },
-                       length: { maximum: 15 }
+                       length: { maximum: 60 }
   validates :age, presence: true, numericality: { only_integer: true,
                                                   greater_than: 0 }
   validates :sex, presence: true, numericality: { only_integer: true,
@@ -53,5 +56,32 @@ class User < ApplicationRecord
       find(:all)
     end
   end
+
+  def self.from_omniauth(auth,
+                         _signed_in_resource = nil)
+    user = User.find_by(provider: auth.provider, uid: auth.uid)
+    if user
+    else
+      registered_user = User.find_by(email: auth.info.email)
+
+      return registered_user if registered_user
+
+      user = User.new(
+        name: auth.extra.raw_info.name,
+        provider: auth.provider,
+        uid: auth.uid,
+        username: auth.extra.raw_info.name,
+        sex: 3,
+        age: 1,
+        email: auth.info.email,
+        password: Devise.friendly_token[0, 20]
+      )
+      user.skip_confirmation!
+      user.save
+    end
+    user
+  end
 end
 # rubocop:enable Lint/AssignmentInCondition
+# rubocop:enable Metrics/AbcSize
+# rubocop:enable Metrics/MethodLength
