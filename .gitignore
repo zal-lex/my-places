@@ -37,3 +37,4 @@
 yarn-debug.log*
 .yarn-integrity
 /public/uploads
+/config/initializers/app_env_vars.rb

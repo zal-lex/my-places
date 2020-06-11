@@ -1,5 +1,7 @@
 let map;
 let places = [];
+let markers = [];
+let userId = document.body.getAttribute('data-params-id');
 
 $(document).ready(initMap = function() {
   let Minsk = new google.maps.LatLng(53.90223918954443, 27.561849518192048);
@@ -178,10 +180,10 @@ $(document).ready(initMap = function() {
   ]
   });
 
-  getPlaces();
+  getPlaces(map);
 });
 
-async function getPlaces () {
+async function getPlaces (map) {
   let userId = document.body.getAttribute('data-params-id');
   let url = "/users/" + userId + "/fav_places.json";
   let response = await fetch(url);
@@ -189,7 +191,7 @@ async function getPlaces () {
   if (response.ok) {
     places = await response.json();
   } else {
-    console.log("Ошибка HTTP: " + response.status);
+    console.log("HTTP error: " + response.status);
   }
 
   setMarkers(map, places);
@@ -202,15 +204,15 @@ function setMarkers(map, places) {
       places[i].longitude
     );
     let content =
-      "<strong>Title:</strong></br>" +
-      places[i].title +
-      "</br><strong>Description:</strong></br>" +
-      places[i].description;
+      '<div class="container"><div class="row">' +
+      `<div class="col-9"><strong>${places[i].title}</strong></br>${places[i].description}</div>` +
+      `<div class="col-3 favorite" id="favstatus-${places[i].id}"></div></div></div>`;
 
     let marker = new google.maps.Marker({
       map: map,
       position: position,
     });
+    markers.push(marker);
 
     let infowindow = new google.maps.InfoWindow();
 
@@ -221,8 +223,67 @@ function setMarkers(map, places) {
         return function () {
           infowindow.setContent(content);
           infowindow.open(map, marker);
+          let is_favorite = 'favorite';
+          toggleFavStatus(map, places[i], is_favorite, infowindow);
         };
       })(marker, content, infowindow)
     );
   }
+}
+
+function toggleFavStatus(map, place, is_favorite, infoWindow) {
+  google.maps.event.addListener(infoWindow, "domready", function () {
+    let favStatus = document.getElementById(`favstatus-${place.id}`);
+    
+    favStatus.addEventListener('click', async function() {
+      if (is_favorite === 'favorite') {
+        let response = await fetch("/users/" + userId + "/places/" + place.id + "/likes", {
+          method: "DELETE",
+          headers: {
+            "X-CSRF-Token": document
+              .getElementsByName("csrf-token")[0]
+              .getAttribute("content"),
+          },
+        })
+        if (response.ok) {
+          for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+          }
+          markers = [];
+          getPlaces(map);
+        } else {
+          alert("HTTP error: " + response.status);
+        }
+
+      } else if (is_favorite === 'unfavorite') {
+        let submittableData = {
+          user_id: userId,
+          place_id: place.id,
+        }
+
+        let response = await fetch("/users/" + userId + "/places/" + place.id + "/likes", {
+          method: "POST",
+          headers: {
+            "X-CSRF-Token": document
+              .getElementsByName("csrf-token")[0]
+              .getAttribute("content"),
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(submittableData),
+        })
+        if (response.ok) {
+          infoWindow.close();
+          for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+          }
+          markers = [];
+          getPlaces(map);
+        } else {
+          alert("HTTP error: " + response.status);
+        }
+      } else {
+        alert("Error with place favorite status");
+      }
+    })
+  })
 }

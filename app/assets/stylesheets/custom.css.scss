@@ -86,6 +86,7 @@ h2 {
   margin-top: 0px;
   border: 1px solid #fff;
   border-radius: 0;
+  min-width: 200px;
 }
 
 .top-button {
@@ -246,6 +247,21 @@ html, body {
 .error-message {
   color: red;
   padding-top: 0.5em;
+}
+
+
+.favorite {
+  background: url(star.png) no-repeat;
+  height: 20px;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.unfavorite {
+  background: url(unstar.png) no-repeat;
+  height: 20px;
+  padding: 0px;
+  cursor: pointer;
 }
 
 .input-code {
