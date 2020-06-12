@@ -79,9 +79,7 @@ function deletePlace (map, place, marker, infoWindow) {
         }
       })
       if (response.ok) {
-        console.log(marker.map)
         marker.setMap(null);
-        console.log(marker.map)
         infoWindow.close();
       } else {
         console.log('Something wrong with network')
