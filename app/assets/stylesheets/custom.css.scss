@@ -9,7 +9,7 @@ h2 {
 }
 
 .main-bg {
-  background-image: url(bg3.jpg);
+  background: image-url('bg3.jpg');
   background-size: cover;
   background-position: center;
   height: 92%;
@@ -251,14 +251,14 @@ html, body {
 
 
 .favorite {
-  background: url(star.png) no-repeat;
+  background: image-url('star.png') no-repeat;
   height: 20px;
   padding: 0px;
   cursor: pointer;
 }
 
 .unfavorite {
-  background: url(unstar.png) no-repeat;
+  background: image-url('unstar.png') no-repeat;
   height: 20px;
   padding: 0px;
   cursor: pointer;
