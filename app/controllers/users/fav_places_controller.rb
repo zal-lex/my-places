@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
+
 class Users::FavPlacesController < ApplicationController
   respond_to :json
 

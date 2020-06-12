@@ -1,5 +1,13 @@
 @import 'bootstrap/dist/css/bootstrap';
 
+/* Style Devise Flash messages like Bootstrap */
+.alert {
+  color: #fff;
+  background-color: #312767;
+  border-color: #312767;
+}
+
+
 h2 {
   color: #000000;
 }

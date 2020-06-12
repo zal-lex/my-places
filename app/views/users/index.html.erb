@@ -2,9 +2,12 @@
   <div class="row main-content"> 
     <div class="col-1"></div>
     <div class="col-4">
-      <div class="register slideRight">
-
+        <div class="register slideRight">
         <div class="tool">
+                    <div class="col-8">
+          <h3> Our TOP users with most likes on places </h3>
+          <%= render partial: 'shared/users', collection: @users %>
+        </div>
           <h3 class="main-page-header"><mark>Register</mark></h3>
             <p><span class="underline">Register in the app</span> and add your favorite <span class="underline">places to map</span> with your description and photos.</p>
         </div>

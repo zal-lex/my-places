@@ -1,0 +1,14 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    <%= (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset('user_pdf').to_s %>
+  </style>
+</head>
+<body >
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>
