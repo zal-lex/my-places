@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:signin) }
     devise_parameter_sanitizer.permit(:sign_up,
                                       keys: %i[email password password_confirmation username name
-                                               age sex avatar_url])
+                                               age sex avatar_url _destroy])
     devise_parameter_sanitizer.permit(:account_update,
                                       keys: %i[email password password_confirmation username name
                                                age sex avatar_url])

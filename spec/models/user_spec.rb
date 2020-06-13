@@ -23,9 +23,13 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_presence_of(:age) }
     it { is_expected.to validate_presence_of(:sex) }
     it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
-    it { is_expected.to validate_length_of(:name).is_at_most(60) }
-    it { is_expected.to validate_length_of(:username).is_at_most(60) }
-    it { is_expected.to validate_numericality_of(:age).is_greater_than(0) }
+    it { is_expected.to validate_length_of(:name).is_at_least(3).is_at_most(60) }
+    it { is_expected.to validate_length_of(:username).is_at_least(3).is_at_most(60) }
+
+    it {
+      expect(user).to validate_numericality_of(:age).is_less_than(200)
+                                                    .is_greater_than(0)
+    }
 
     it {
       expect(user).to validate_numericality_of(:sex).is_less_than_or_equal_to(3)
