@@ -20,10 +20,10 @@ $(document).ready(initMap = function() {
                 "saturation": 36
             },
             {
-                "color": "#000000"
+                "color": "#ffffff"
             },
             {
-                "lightness": 40
+                "lightness": 20
             }
         ]
     },
@@ -38,7 +38,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 16
+                "lightness": 20
             }
         ]
     },
@@ -59,7 +59,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 20
+                "lightness": 23
             }
         ]
     },
@@ -71,7 +71,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 20
             },
             {
                 "weight": 1.2
@@ -86,7 +86,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 20
+                "lightness": 45
             }
         ]
     },
@@ -98,7 +98,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 21
+                "lightness": 40
             }
         ]
     },
@@ -110,7 +110,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 35
             }
         ]
     },
@@ -122,7 +122,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 29
+                "lightness": 32
             },
             {
                 "weight": 0.2
@@ -137,7 +137,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 18
+                "lightness": 35
             }
         ]
     },
@@ -149,7 +149,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 16
+                "lightness": 35
             }
         ]
     },
@@ -161,7 +161,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 19
+                "lightness": 35
             }
         ]
     },
@@ -173,7 +173,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 40
             }
         ]
     }
@@ -205,12 +205,13 @@ function setMarkers(map, places) {
     );
     let content =
       '<div class="container"><div class="row">' +
-      `<div class="col-9"><strong>${places[i].title}</strong></br>${places[i].description}</div>` +
+      `<div class="col-9"><p class="place-title">${places[i].title}</p><hr><p class="place-description">${places[i].description}</p></div>` +
       `<div class="col-3 favorite" id="favstatus-${places[i].id}"></div></div></div>`;
 
     let marker = new google.maps.Marker({
       map: map,
       position: position,
+      icon: '/assets/marker-fav.png'
     });
     markers.push(marker);
 

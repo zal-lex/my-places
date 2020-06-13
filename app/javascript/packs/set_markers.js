@@ -26,6 +26,7 @@ async function getPlaces(map) {
         let marker = new google.maps.Marker({
           position: location,
           map: map,
+          icon: '/assets/marker.png'
         });
         setMarker(map, marker, places[i], is_favorite);
       }
@@ -41,13 +42,15 @@ function setMarker(map, marker, place, is_favorite) {
 
   markers.push(marker);
   let content =
-    '<div class="container"><div class="row"><div class="col-9"><strong>Title:</strong></br>' +
+    '<div class="container"><div class="row"><div class="col-9"><p class="place-title">' +
     place.title +
-    '</br><strong>Description:</strong></br>' +
+    '</p><hr>' +
+    '<p class="description-title">' +
     place.description +
+    '</p>' +
     `</div><div class="col-3 ${is_favorite}" id="favstatus-${place.id}"></div></div>` +
-    `<div class="row"><button id="editButton-${place.id}" class="btn  btn-outline-dark btn-sm">Edit</button>` +
-    `<button id="deleteButton-${place.id}" class="btn btn-outline-dark btn-sm pad">Delete</button></div></div>`;
+    `<button id="editButton-${place.id}" class="btn  btn-outline-light btn-sm">Edit</button>` +
+    `<button id="deleteButton-${place.id}" class="btn btn-outline-light btn-sm pad">Delete</button></div></div>`;
 
   let infoWindow = new google.maps.InfoWindow();
   google.maps.event.addListener(

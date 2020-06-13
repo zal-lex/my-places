@@ -32,9 +32,9 @@ admin.save!
   user.skip_confirmation!
   user.save!
 end
- 
+
 users = User.order(:created_at).take(6)
- 
+
 6.times do |n|
   user = User.find(n+1)
   3.times do
@@ -45,12 +45,12 @@ users = User.order(:created_at).take(6)
     user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude)
   end
 end
- 
+
 users = User.all
 user = users.first
 following = users[2..9]
 following.each { |friend| user.follow(friend) }
- 
+
 users = User.order(:created_at).take(6)
 6.times do |n|
   user = User.find(n+1)

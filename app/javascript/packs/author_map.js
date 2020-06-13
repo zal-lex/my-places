@@ -20,10 +20,10 @@ $(document).ready(initMap = function() {
                 "saturation": 36
             },
             {
-                "color": "#000000"
+                "color": "#ffffff"
             },
             {
-                "lightness": 40
+                "lightness": 20
             }
         ]
     },
@@ -38,7 +38,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 16
+                "lightness": 20
             }
         ]
     },
@@ -59,7 +59,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 20
+                "lightness": 23
             }
         ]
     },
@@ -71,7 +71,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 20
             },
             {
                 "weight": 1.2
@@ -86,7 +86,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 20
+                "lightness": 45
             }
         ]
     },
@@ -98,7 +98,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 21
+                "lightness": 40
             }
         ]
     },
@@ -110,7 +110,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 35
             }
         ]
     },
@@ -122,7 +122,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 29
+                "lightness": 32
             },
             {
                 "weight": 0.2
@@ -137,7 +137,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 18
+                "lightness": 35
             }
         ]
     },
@@ -149,7 +149,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 16
+                "lightness": 35
             }
         ]
     },
@@ -161,7 +161,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 19
+                "lightness": 35
             }
         ]
     },
@@ -173,7 +173,7 @@ $(document).ready(initMap = function() {
                 "color": "#000000"
             },
             {
-                "lightness": 17
+                "lightness": 40
             }
         ]
     }
@@ -195,6 +195,7 @@ function addPlace(location) {
   let marker = new google.maps.Marker({
     position: location,
     map: map,
+    icon: '/assets/marker.png'
   });
 
   // Create form and submit button
@@ -209,7 +210,7 @@ function addPlace(location) {
         '<textarea class="form-control" id="description_input" rows="3" maxlength="500" placeholder="Enter description"></textarea>' +
       '</div>' +
     '</form>'+
-    '<button id="inputButton" class="btn btn-outline-dark btn-sm">Set my Place!</button>';
+    '<button id="inputButton" class="btn btn-outline-light btn-sm">Set my Place!</button>';
 
   let infoWindow = new google.maps.InfoWindow();
   // Set infoWindow content
