@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
   def index
-    if params[:search]
+    if params[:search].present?
       @users = User.search(params[:search])
       render 'show_search'
     else
