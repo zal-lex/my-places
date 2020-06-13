@@ -1,0 +1,5 @@
+
+<%= link_to user_path(id: users.id) do %>
+  <%= image_tag(users.avatar_url.url, class: 'user_avatar-top') if users.avatar_url? %>
+<% end %>
+

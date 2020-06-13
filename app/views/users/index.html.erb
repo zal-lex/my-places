@@ -1,9 +1,8 @@
-<div class="container main-bg"> 
-  <div class="row main-content"> 
+<div class="container main-bg">
+  <div class="row main-content">
     <div class="col-1"></div>
     <div class="col-4">
-      <div class="register slideRight">
-
+        <div class="register slideRight">
         <div class="tool">
           <h3 class="main-page-header"><mark>Register</mark></h3>
             <p><span class="underline">Register in the app</span> and add your favorite <span class="underline">places to map</span> with your description and photos.</p>
@@ -18,13 +17,22 @@
   </div>
     <div class="col-1"></div>
     <div class="col-4">
-      <div class="save slideLeft">
+      <div class="top-users slideLeft">
+        <div class="tool">
+          <h3 class="main-page-header"><mark>Look at the maps of our top users</mark></h3>
+          <div class="users-top">
+            <%= render partial: 'shared/users', collection: @users %>
+          </div>
+        </div>
+      </div>
+      <div class="share slideLeft">
         <div class="tool">
           <h3 class="main-page-header"><mark>Share with friends</mark></h3>
             <p><span class="underline">Copy your page link</span> and share <span class="underline">your favorite places with friends</span> and have access to your <span class="underline">friends favorite places.</span></p>
         </div>
       </div>
-    </div> 
-    <div class="col-1"></div>
+    </div>
+        <div class="col-1"></div>
+
   <div>
 </div>

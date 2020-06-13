@@ -5,11 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-admin = User.new(username: "tanya",
-             name: "tanya",
-             age: "2",
-             sex: "2",
-             email: "anymail@gmail.com",
+admin = User.new(username: "Dumbledore",
+             name: "Dumbledore",
+             age: "222",
+             sex: "1",
+             email: "admin@hogwarts.com",
              is_admin: true,
              password: "123123",
              password_confirmation: "123123")
@@ -37,10 +37,10 @@ users = User.order(:created_at).take(6)
 
 6.times do |n|
   user = User.find(n+1)
-  3.times do 
+  3.times do
     title = Faker::Lorem.sentence
     description = Faker::Lorem.sentence
-    latitude = rand(53.80..54.00) 
+    latitude = rand(53.80..54.00)
     longitude = rand(27.40..27.70)
     user.places.create!( title: title, description: description, latitude: latitude, longitude: longitude)
   end

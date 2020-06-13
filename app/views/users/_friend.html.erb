@@ -4,7 +4,7 @@
       	<%= image_tag(friend.avatar_url.thumb.url, class: 'user_avatar') if friend.avatar_url? %>
     </div>
     <div class="col">
-     
+
       <%= link_to "#{friend.username}", user_path(id: friend.id) %>
     </div>
   </div>

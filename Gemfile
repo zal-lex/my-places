@@ -25,6 +25,8 @@ gem 'carrierwave'
 gem 'rmagick'
 gem 'fog-aws'
 gem 'font_awesome5_rails'
+gem "pdfkit"
+gem "wkhtmltopdf-binary"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -61,4 +63,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webdrivers'
   gem 'json_matchers'
+end
+
+group :staging, :production do
+  gem "wkhtmltopdf-heroku"
 end
