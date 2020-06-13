@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = 'User was deleted forever'
-    redirect_to current_user
+    redirect_to root_path
   end
 
   def following
