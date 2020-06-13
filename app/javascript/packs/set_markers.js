@@ -17,16 +17,19 @@ async function getPlaces(map) {
       fav_places = await response_fav_places.json();
       
       for (var i = 0; i < places.length; i++) {
-        let is_favorite = 'unfavorite'
+        let is_favorite = 'unfavorite';
+        let marker_icon = '/assets/marker.png';
         if (fav_places.find(fav_place => fav_place.id === places[i].id)) {
-          is_favorite = 'favorite'
+          is_favorite = 'favorite';
+          marker_icon = '/assets/marker-fav.png';
         }
+
         let location = new google.maps.LatLng(places[i].latitude, places[i].longitude);
         // Create marker
         let marker = new google.maps.Marker({
           position: location,
           map: map,
-          icon: '/assets/marker.png'
+          icon: marker_icon,
         });
         setMarker(map, marker, places[i], is_favorite);
       }

@@ -209,10 +209,12 @@ async function getPlaces(map) {
 function setMarkers(map, places, fav_places) {
   for (let i = 0; i < places.length; i++) {
     let is_favorite = 'unfavorite';
-
+    let marker_icon = '/assets/marker.png';
     if (fav_places.find(fav_place => fav_place.id === places[i].id)) {
       is_favorite = 'favorite';
+      marker_icon = '/assets/marker-fav.png';
     }
+
     let position = new google.maps.LatLng(
       places[i].latitude,
       places[i].longitude
@@ -225,7 +227,7 @@ function setMarkers(map, places, fav_places) {
     let marker = new google.maps.Marker({
       map: map,
       position: position,
-      icon: '/assets/marker.png'
+      icon: marker_icon,
     });
     markers.push(marker);
     let infowindow = new google.maps.InfoWindow();

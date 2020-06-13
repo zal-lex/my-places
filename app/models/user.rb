@@ -17,11 +17,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable, :omniauthable,
          omniauth_providers: %i[facebook]
-  validates :name, presence: true, length: { maximum: 60 }
+  validates :name, presence: true, length: { in: 3..60 }
   validates :username, presence: true, uniqueness: { case_sensitive: false },
-                       length: { maximum: 60 }
+                       length: { in: 3..60 }
   validates :age, presence: true, numericality: { only_integer: true,
-                                                  greater_than: 0 }
+                                                  greater_than: 0, less_than: 200 }
   validates :sex, presence: true, numericality: { only_integer: true,
                                                   less_than_or_equal_to: 3,
                                                   greater_than: 0 }

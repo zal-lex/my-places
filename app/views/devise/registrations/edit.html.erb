@@ -37,6 +37,7 @@
     <%= f.label :avatar_url %>
     <p><%= image_tag(@user.avatar_url.thumb.url) if @user.avatar_url? %></p>
     <%= f.file_field :avatar_url %>
+    <p>Allowed types: jpg, jpeg, gif, png</p>
   </div>
 
     <div class="form-group">
