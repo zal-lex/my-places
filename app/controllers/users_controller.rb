@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
 
   def index
-    if params[:search]
+    if params[:search].present?
       @users = User.search(params[:search])
       render 'show_search'
     else
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     flash[:success] = 'User was deleted forever'
-    redirect_to current_user
+    redirect_to root_path
   end
 
   def following
