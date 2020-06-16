@@ -71,3 +71,4 @@ end
 group :staging, :production do
   gem "wkhtmltopdf-heroku"
 end
+
