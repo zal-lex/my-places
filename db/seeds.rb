@@ -7,37 +7,38 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 admin = User.new(username: "Dumbledore",
              name: "Dumbledore",
-             age: "222",
+             age: "111",
              sex: "1",
              email: "admin@hogwarts.com",
              is_admin: true,
+             avatar_url: Rails.root.join("app/assets/images/user0.jpg").open,
              password: "123123",
              password_confirmation: "123123")
 admin.skip_confirmation!
 admin.save!
 10.times do |n|
   username = Faker::Name.name
-  name = "tanya"
+  name = Faker::Name.name
   age = 2,
   sex = 2,
   email = "tanya-#{n+1}@ya.ru"
   password = "123123"
+  avatar_url = Rails.root.join("app/assets/images/user#{n+1}.jpg").open
   user = User.new(username: username[5..15],
                   name: name,
                   age: 15,
                   sex: 2,
                   email: email,
+                  avatar_url: avatar_url,
                   password: password,
                   password_confirmation: password)
   user.skip_confirmation!
   user.save!
 end
 
-users = User.order(:created_at).take(6)
-
-6.times do |n|
-  user = User.find(n+1)
-  3.times do
+11.times do |n|
+  user = User.find(11-n)
+  (12-n).times do
     title = Faker::Lorem.sentence
     description = Faker::Lorem.sentence
     latitude = rand(53.80..54.00)
@@ -46,15 +47,16 @@ users = User.order(:created_at).take(6)
   end
 end
 
-users = User.all
-user = users.first
-following = users[2..9]
-following.each { |friend| user.follow(friend) }
+  users = User.all
+11.times do |n|
+  user = User.find(n+1)
+  following = users[1..11-n]
+  following.each { |friend| user.follow(friend) }
+end
 
-users = User.order(:created_at).take(6)
-6.times do |n|
+11.times do |n|
   user = User.find(n+1)
   places = Place.all
-  liking = places[1..15]
+  liking = places[1..70-5*n]
   liking.each { |place| user.fav_places.create!(likeable: place) }
 end

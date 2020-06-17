@@ -8,7 +8,7 @@ class UsersController < ApplicationController
       @users = User.search(params[:search])
       render 'show_search'
     else
-      @users = User.all
+      @users = users
     end
   end
 
@@ -22,8 +22,8 @@ class UsersController < ApplicationController
       @place = Place.find(n)
       @author_id = @place.author_id
     end
-    @top10_users_id = @top_users_id.uniq[0..10]
-    User.where(id: @top10_users_id)
+    @top6_users_id = @top_users_id.uniq[0..5]
+    User.where(id: @top6_users_id)
   end
 
   def destroy
