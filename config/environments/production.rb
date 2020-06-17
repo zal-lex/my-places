@@ -72,10 +72,10 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default_url_options = { :host => 'my-places.site' }
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :sendmail
   config.action_mailer.smtp_settings = {
   :address => "smtp.yandex.ru",
-  :port => 465,
+  :port => 587,
   :domain => "yandex.ru",
   :user_name => ENV['MAILER_EMAIL'],
   :password => ENV['MAILER_PASSWORD'],
