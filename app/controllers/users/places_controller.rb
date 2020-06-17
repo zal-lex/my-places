@@ -14,6 +14,11 @@ class Users::PlacesController < ApplicationController
     @place.photos.attach(params[:photos]) if @place.save && params[:photos] != 'undefined'
   end
 
+  def update
+    @place = Place.find(params[:id])
+    @place.update(place_params)
+  end
+
   def destroy
     Place.find(params[:id]).destroy
   end

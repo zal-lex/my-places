@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users do
     resource :download, only: [:show]
     resources :fav_places, only: %i(index), controller: 'users/fav_places'
-    resources :places, only: %i(index create destroy), controller: 'users/places' do
+    resources :places, only: %i(index create update destroy), controller: 'users/places' do
       resource :likes, only: %i(create destroy), controller: 'users/places/likes'
     end
     member do
