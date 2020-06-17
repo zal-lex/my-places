@@ -29,6 +29,7 @@ gem "pdfkit"
 gem "wkhtmltopdf-binary"
 gem 'exception_handler'
 gem 'simplecov', require: false, group: :test
+gem 'aws-sdk-s3'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
