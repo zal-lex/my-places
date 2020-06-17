@@ -20,6 +20,12 @@ RSpec.describe 'Download', type: :request do
         expect(response).to render_template('users/pdf.html.erb')
       end
 
+      it 'renders a page with statistics from layout' do
+        sign_in user
+        get '/users/:id/download.pdf', headers: headers
+        expect(response).to render_template('layouts/user_pdf.html.erb')
+      end
+
       it 'renders a successful response' do
         sign_in user
         get '/users/:id/download.pdf', headers: headers

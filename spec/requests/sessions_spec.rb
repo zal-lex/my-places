@@ -2,8 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 # rubocop:disable RSpec/LetSetup
+# rubocop:disable Layout/LineLength
 require 'rails_helper'
-
+require 'pry'
 RSpec.describe 'Authentication', type: :request do
   let(:valid_attributes) do
     {
@@ -61,6 +62,124 @@ RSpec.describe 'Authentication', type: :request do
       expect(response.body).to include 'Signed out successfully.'
     end
   end
+
+  describe "GET '/users/auth/facebook'" do
+    before do
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+                                                                      provider: 'facebook',
+                                                                      uid: '123545',
+                                                                      info: {
+                                                                        email: 'test@example.com',
+                                                                        password: '123123'
+                                                                      },
+                                                                      credentials: {
+                                                                        token: '123456',
+                                                                        expires_at: Time.zone.now + 1.week
+                                                                      },
+                                                                      extra: {
+                                                                        raw_info: {
+                                                                          name: 'Gaius',
+                                                                          username: 'Baltar',
+                                                                          gender: 'male'
+                                                                        }
+                                                                      }
+                                                                    })
+
+      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
+      Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
+    end
+
+    context 'when user signs in via facebook for the first time' do
+      it "creates a new user if there's a user profile on facebook" do
+        expect do
+          get '/users/auth/facebook/callback'
+          User.from_omniauth(OmniAuth.config.mock_auth[:facebook])
+        end.to change(User, :count).by(1)
+      end
+
+      it 'redirects to user page' do
+        get '/users/auth/facebook/callback'
+        user = User.from_omniauth(OmniAuth.config.mock_auth[:facebook])
+        expect(response).to redirect_to user_path(user)
+      end
+    end
+
+    context 'when user signs in via facebook not for the first time' do
+      let!(:user) { FactoryBot.create(:user_facebook) }
+
+      it 'does not create additional user' do
+        expect do
+          get '/users/auth/facebook/callback'
+          User.from_omniauth(OmniAuth.config.mock_auth[:facebook])
+        end.to change(User, :count).by(0)
+      end
+
+      it 'finds the registered before user' do
+        get '/users/auth/facebook/callback'
+        user2 = User.from_omniauth(OmniAuth.config.mock_auth[:facebook])
+        expect(user).to eq(user2)
+      end
+    end
+  end
+
+  describe 'empty email in Facebook auth' do
+    before do
+      OmniAuth.config.test_mode = true
+      OmniAuth.config.mock_auth[:facebook] = OmniAuth::AuthHash.new({
+                                                                      provider: 'facebook',
+                                                                      uid: '123545',
+                                                                      info: {
+                                                                        email: '',
+                                                                        password: '123123'
+                                                                      },
+                                                                      credentials: {
+                                                                        token: '123456',
+                                                                        expires_at: Time.zone.now + 1.week
+                                                                      },
+                                                                      extra: {
+                                                                        raw_info: {
+                                                                          name: 'Gaius',
+                                                                          username: 'Baltar',
+                                                                          gender: 'male'
+                                                                        }
+                                                                      }
+                                                                    })
+
+      Rails.application.env_config['devise.mapping'] = Devise.mappings[:user] # If using Devise
+      Rails.application.env_config['omniauth.auth'] = OmniAuth.config.mock_auth[:facebook]
+    end
+
+    context 'when user is not logged in in his facebook account' do
+      it 'redirects to the main page' do
+        get '/users/auth/facebook/callback'
+        User.from_omniauth(OmniAuth.config.mock_auth[:facebook])
+        expect(response).to redirect_to new_user_registration_url
+      end
+    end
+  end
+
+  describe 'Failure' do
+    after do
+      Rails.application.reload_routes!
+    end
+
+    before do
+      Rails.application.routes.draw do
+        devise_scope :user do
+          get '/users/auth/failure' => 'users/omniauth_callbacks#failure'
+        end
+        root 'static_pages#index'
+      end
+
+      get '/users/auth/failure'
+    end
+
+    it 'redirects to root path' do
+      expect(response).to redirect_to root_path
+    end
+  end
 end
 # rubocop:enable Metrics/BlockLength
 # rubocop:enable RSpec/LetSetup
+# rubocop:enable Layout/LineLength

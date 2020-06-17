@@ -13,6 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
@@ -39,3 +40,4 @@ yarn-debug.log*
 /public/user.pdf
 /public/uploads/*
 /config/initializers/app_env_vars.rb
+/coverage/*
