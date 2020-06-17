@@ -9,4 +9,5 @@ class Place < ApplicationRecord
                                                        greater_than_or_equal_to: -90 }
   validates :longitude, presence: true, numericality: { less_than_or_equal_to: 180,
                                                         greater_than_or_equal_to: -180 }
+  has_many_attached :photos
 end

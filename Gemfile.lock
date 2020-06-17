@@ -107,7 +107,12 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    docile (1.3.2)
     erubi (1.9.0)
+    exception_handler (0.8.0.0)
+      bundler
+      rails (>= 4.2.0)
+      responders
     excon (0.73.0)
     factory_bot (5.2.0)
       activesupport (>= 4.2.0)
@@ -149,6 +154,7 @@ GEM
     ipaddress (0.8.3)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
+    json (2.3.0)
     json_matchers (0.11.1)
       json_schema
     json_schema (0.20.8)
@@ -238,6 +244,10 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
+    rails_real_favicon (0.1.0)
+      json (>= 1.7, < 3)
+      rails
+      rubyzip (~> 2)
     railties (6.0.3)
       actionpack (= 6.0.3)
       activesupport (= 6.0.3)
@@ -308,6 +318,10 @@ GEM
       rubyzip (>= 1.2.2)
     shoulda-matchers (4.3.0)
       activesupport (>= 4.2.0)
+    simplecov (0.18.5)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+    simplecov-html (0.12.2)
     spring (2.1.0)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -364,6 +378,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   carrierwave
   devise
+  exception_handler
   factory_bot_rails
   faker (= 2.1.2)
   fog-aws
@@ -380,6 +395,7 @@ DEPENDENCIES
   puma (~> 4.1)
   rails (~> 6.0.3)
   rails-controller-testing
+  rails_real_favicon
   rmagick
   rspec
   rspec-rails
@@ -388,6 +404,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   selenium-webdriver
   shoulda-matchers
+  simplecov
   spring
   spring-watcher-listen (~> 2.0.0)
   web-console (>= 3.3.0)

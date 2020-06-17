@@ -4,9 +4,9 @@ FactoryBot.define do
   factory :user do
     name { "User_#{rand(999)}" }
     username { "Username_#{rand(999)}" }
-    sequence(:email) { |n| "me_user_#{n}@example.com" }
+    sequence(:email) { |n| "me_user1_#{n}@example.com" }
     sex { rand(1..3) }
-    age { rand(1..200) }
+    age { rand(1..199) }
     is_admin { 'false' }
     confirmed_at { DateTime.now }
     confirmation_token { "dfsdfdsf#{rand(999)}" }

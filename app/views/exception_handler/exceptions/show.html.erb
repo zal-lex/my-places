@@ -1,0 +1,15 @@
+<div class="container edit">
+  <div class="row">
+    <div class="col-md-8">
+  <h3><%= 'Ooops!' %></h3>
+ <div class="nav-item active">
+<%= link_to 'Bring me back, please!', :back %>
+ </div>
+  </div>
+</div>
+</div>
+
+<%= content_tag :div, class: "exception", data: { status: @exception.status, response: @exception.response.to_s.humanize, rails: Rails.version }, onclick: ("location.href=\"#{root_url}\";" if @exception.status.to_s.first == "5" && Rails.application.routes.recognize_path("/")) do %>
+  <%= content_tag :span, @exception.description.html_safe %>
+<% end %>
+

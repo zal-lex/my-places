@@ -20,7 +20,7 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV['FAVORITE_PLACES_DATABASE_USER'] %> 
+  username: <%= ENV['FAVORITE_PLACES_DATABASE_USER'] %>
   password: <%= ENV['FAVORITE_PLACES_DATABASE_PASSWORD'] %>
 
 development:

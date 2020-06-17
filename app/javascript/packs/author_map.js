@@ -203,11 +203,15 @@ function addPlace(location) {
     '<form>' +
       '<div class="form-group">' +
         '<label for="title">Title:</label>' +
-        '<input type="text" class="form-control" id="title_input" rows="1" required maxlength="60" placeholder="Enter title">' +
+        '<input type="text" class="form-control" id="titleInput" rows="1" required maxlength="60" placeholder="Enter title">' +
       '</div>' +
       '<div class="form-group">' +
         '<label for="description">Description:</label>' +
-        '<textarea class="form-control" id="description_input" rows="3" maxlength="500" placeholder="Enter description"></textarea>' +
+        '<textarea class="form-control" id="descriptionInput" rows="3" maxlength="500" placeholder="Enter description"></textarea>' +
+      '</div>' +
+      '<div class="form-group">' +
+        '<label for="photos">Select photos:</label>' +
+        '<input type="file" class="form-control" id="fileInput" multiple>' +
       '</div>' +
     '</form>'+
     '<button id="inputButton" class="btn btn-outline-light btn-sm">Set my Place!</button>';
@@ -230,7 +234,6 @@ function savePlace(infoWindow, marker) {
     })
     // Bind action for set title button
     let button = document.getElementById("inputButton");
-
     // On click of form submit buttons
     button.addEventListener('click', async function(e) {
       submittedStatus = true;
@@ -244,8 +247,9 @@ function savePlace(infoWindow, marker) {
 
       if ( stopSubmit ) { e.preventDefault(); } else {
         // Get input value and call setMarkerData function
-        let inputTitle = document.getElementById("title_input").value;
-        let inputDescription = document.getElementById("description_input").value;
+        let inputTitle = document.getElementById("titleInput").value;
+        let inputDescription = document.getElementById("descriptionInput").value;
+        let fileInput = document.getElementById("fileInput");
         let submittableData = {
           title: inputTitle,
           description: inputDescription,
@@ -253,6 +257,12 @@ function savePlace(infoWindow, marker) {
           longitude: marker.getPosition().lng(),
         };
         let userId = document.body.getAttribute('data-params-id');
+        let fd = new FormData();
+        fd.append('place[title]', inputTitle);
+        fd.append('place[description]', inputDescription);
+        fd.append('place[latitude]', marker.getPosition().lat());
+        fd.append('place[longitude]', marker.getPosition().lng());
+        fd.append('photos', fileInput.files[0]);
 
         let response = await fetch("/users/" + userId + "/places", {
           method: "POST",
@@ -260,18 +270,19 @@ function savePlace(infoWindow, marker) {
             "X-CSRF-Token": document
               .getElementsByName("csrf-token")[0]
               .getAttribute("content"),
-            "Content-Type": "application/json",
+              processData: false,
           },
-          body: JSON.stringify(submittableData),
+          body: fd,
         })
 
         let place = await response.json();
+
         let is_favorite = 'unfavorite';
         setMarker(map, marker, place, is_favorite);
         infoWindow.close();
       }
     });
 
-    document.getElementById("title_input").focus();
+    document.getElementById("titleInput").focus();
   });
 }
