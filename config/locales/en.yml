@@ -28,9 +28,13 @@
 #
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  exception_handler:
+    not_found: "ERROR 404. Not found. Sorry"
+    unauthorized: "You need to login to continue"
+    internal_server_error: "ERROR %{status}. Sorry"
 
   app:
     name: 'Favorite Places'
+
+
