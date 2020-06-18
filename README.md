@@ -6,9 +6,9 @@ Favorite-Places is a Ruby-based social application for sharing with friends your
 
 ## Screenshots
 
-<img width=“964” alt="general view ot the app" src="https://github.com/TanjaZzz/HufflePuffs_affairs/blob/master/public/Screen%20Shot%202020-06-16%20at%2021.09.50.png">
+<img width=“964” alt="general view ot the app" src="https://github.com/RUBYLNIK-training-center/favorite-places-hufflepuff/blob/master/public/Screen%20Shot%201.png">
 
-<img width=“964” alt="general view ot the app" src="https://github.com/TanjaZzz/HufflePuffs_affairs/blob/master/public/Screen%20Shot%202020-06-16%20at%2021.12.06.png">
+<img width=“964” alt="general view ot the app" src="https://github.com/RUBYLNIK-training-center/favorite-places-hufflepuff/blob/master/public/Screen%20Shot%202.png">
 
 ## Table of Contents
 
@@ -82,24 +82,28 @@ brew install imagemagick
 sudo apt-get install libmagickwand-dev imagemagick
 ```
 
-
 ### Set environment variables
 
-Rename files /config/database.yml.example and /config/secrets.yml.example into /config/database.yml and /config/secrets.yml respectively. Edit the database configuration as required.
+Use your preferred way of storing environment variables and set the following ENV:
 ```shell
-config/database.yml.example config/database.yml
-config/secrets.yml.example config/secrets.yml
+ENV['DATABASE_URL']
+ENV['FAVORITE_PLACES_DATABASE_USER']
+ENV['FAVORITE_PLACES_DATABASE_PASSWORD']
+ENV['RAILS_MASTER_KEY']
+ENV['SECRET_KEY_BASE']
+ENV['S3_ACCESS_KEY']
+ENV['S3_SECRET_KEY']
+ENV['S3_BUCKET_NAME']
+ENV['FB_APP_ID']
+ENV['FB_APP_SECRET']
+ENV['MAILER_EMAIL']
+ENV['MAILER_PASSWORD']
+
 ```
-Create file /config/initializers/app_env_vars.rb and store there your variables, as following:
+
+The application use Google Maps. For it's correct performance, get API Key and set it:
 ```shell
-ENV['MAILER_EMAIL'] = 'exampple@example.com'
-ENV['MAILER_PASSWORD'] = 'yourpassword'
-ENV['FB_APP_ID'] = 'yourfacebookappid'
-ENV['FB_APP_SECRET'] = 'yourfacebookappsecret'
-```
-The application use Google Maps. For it's correct performance, get API Key and put it into the file .env
-```shell
-GM_API: # your API Key
+ENV['GM_API']
 ```
 
 ### Initialize the database
