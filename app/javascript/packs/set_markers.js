@@ -51,18 +51,20 @@ function setMarker(map, marker, place, is_favorite) {
       photos_html += `</br><img class="place-photos" src="${photo_url}" alt="${photo_alt}">`;
     }
   }
-
-  let content =
-    `<div class="container delete-padding"><div><div class="${is_favorite}" id="favstatus-${place.id}"></div><p class="place-title">` +
-    place.title +
-    '</p><hr>' +
-    '<p class="description-title">' +
-    place.description.substring(0,150) +
+  let description_html = '';
+  if (place.description.length >= 100) {
+    description_html = `<p class="description-title">${place.description.substring(0,150)}` +
     `<span class="collapse" id="more-${place.id}">${place.description.substring(150)}</span>` +
-    `<span><a href="#more-${place.id}" data-toggle="collapse">... <span style="text-decoration:underline;">show more<i class="fa fa-caret-down"></i></span></p></div>` +
-    `${photos_html}` +
+    `<span><a href="#more-${place.id}" data-toggle="collapse">... <span style="text-decoration:underline;">show more<i class="fa fa-caret-down"></i></span></p>`
+  } else {
+    description_html = `<p class="description-title">${place.description}</p>`
+  }
+  let content =
+    `<div class="container delete-padding"><div><div class="${is_favorite}" id="favstatus-${place.id}"></div>` +
+    `<p class="place-title">${place.title}</p><hr>${description_html}</div>${photos_html}` +
     `<div class="row"><div class="col-3"><button id="editButton-${place.id}" class="btn  btn-outline-light btn-sm">Edit</button></div>` +
     `<div class="col-6"></div><div class="col-3"><button id="deleteButton-${place.id}" class="btn btn-outline-light btn-sm pad">Delete</button></div></div></div>`;
+
   let infoWindow = new google.maps.InfoWindow();
   google.maps.event.addListener(
     marker,

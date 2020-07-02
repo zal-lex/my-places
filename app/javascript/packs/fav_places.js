@@ -211,14 +211,17 @@ function setMarkers(map, places) {
         photos_html += `</br><img class="place-photos" src="${photo_url}" alt="${photo_alt}">`;
       }
     }
-    let content =
-      `<div class="container delete-padding"><div><div class="favorite" id="favstatus-${places[i].id}"></div><p class="place-title">` +
-      places[i].title +
-      '</p><hr>' +
-      '<p class="description-title">' +
-      places[i].description.substring(0,150) +
+    let description_html = '';
+    if (places[i].description.length >= 100) {
+      description_html = `<p class="description-title">${places[i].description.substring(0,150)}` +
       `<span class="collapse" id="more-${places[i].id}">${places[i].description.substring(150)}</span>` +
-      `<span><a href="#more-${places[i].id}" data-toggle="collapse">... <span style="text-decoration:underline;">show more<i class="fa fa-caret-down"></i></span></p></div>` +
+      `<span><a href="#more-${places[i].id}" data-toggle="collapse">... <span style="text-decoration:underline;">show more<i class="fa fa-caret-down"></i></span></p>`
+    } else {
+      description_html = `<p class="description-title">${places[i].description}</p>`
+    }
+    let content =
+      `<div class="container delete-padding"><div><div class="favorite" id="favstatus-${places[i].id}"></div>` +
+      `<p class="place-title">${places[i].title}</p><hr><p class="description-title">${description_html}</p></div>` +
       `${photos_html}`;
     let marker = new google.maps.Marker({
       map: map,

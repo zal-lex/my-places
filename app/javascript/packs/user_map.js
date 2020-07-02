@@ -219,10 +219,25 @@ function setMarkers(map, places, fav_places) {
       places[i].latitude,
       places[i].longitude
     );
+    let photos_html = '';
+    if (typeof places[i].photos !== 'undefined' && places[i].photos.length > 0) {
+      for (var j = 0; j < places[i].photos.length; j++) {
+        let photo_url = places[i].photos[j].photo_url;
+        let photo_alt = places[i].photos[j].photo_alt;
+        photos_html += `</br><img class="place-photos" src="${photo_url}" alt="${photo_alt}">`;
+      }
+    }
+    let description_html = '';
+    if (places[i].description.length >= 100) {
+      description_html = `<p class="description-title">${places[i].description.substring(0,150)}` +
+      `<span class="collapse" id="more-${places[i].id}">${places[i].description.substring(150)}</span>` +
+      `<span><a href="#more-${places[i].id}" data-toggle="collapse">... <span style="text-decoration:underline;">show more<i class="fa fa-caret-down"></i></span></p>`
+    } else {
+      description_html = `<p class="description-title">${places[i].description}</p>`
+    }
     let content =
-      '<div class="container"><div class="row">' +
-      `<div class="col-9"><p class="place-title">${places[i].title}</p><hr><p class="description-title">${places[i].description}</p></div>` +
-      `<div class="col-3 ${is_favorite}" id="favstatus-${places[i].id}"></div></div></div>`;
+      `<div class="container delete-padding"><div><div class="${is_favorite}" id="favstatus-${places[i].id}"></div>` +
+      `<p class="place-title">${places[i].title}</p><hr>${description_html}</div>${photos_html}</div>`;
 
     let marker = new google.maps.Marker({
       map: map,
